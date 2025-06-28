@@ -1,0 +1,15 @@
+@use '../base/variables';
+
+.button {
+    background-color: variables.$primary-color;
+    color: white;
+    border-radius: variables.$border-radius;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button--secondary {
+    background-color: variables.$secondary-color;
+  }

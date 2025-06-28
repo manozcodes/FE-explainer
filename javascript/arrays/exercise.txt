@@ -1,0 +1,5 @@
+1. create one object with your name, location, gender
+2. add your skills (array of string)
+3. add your hobbies (array of object - title, description)
+4. remove your gender
+5. return the final result

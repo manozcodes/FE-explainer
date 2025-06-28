@@ -1,0 +1,9 @@
+@import url('./variables.css');
+
+body {
+  font-family: var(--font-stack);
+  color: var(--text-color);
+  background-color: #f9fafb;
+  margin: 0;
+  padding: 0;
+}

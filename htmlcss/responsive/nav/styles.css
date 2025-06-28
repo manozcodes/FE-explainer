@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #333;
+  background-color: azure;
+  font-family: sans-serif;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(153, 96, 206);
+  align-items: center;
+  padding: 1rem;
+}
+
+.brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  gap: 1.3rem;
+  list-style: none;
+  font-weight: 600;
+}
+
+.menu-icon {
+  font-size: 1.5rem;
+}
+
+label.menu-icon:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+#nav-toggle {
+  display: none;
+}
+
+.container {
+  margin: 50px 100px;
+  display: flex;
+  gap: 15px
+}
+
+.sidebar {
+  border: 1px dotted #333;
+  border-radius: 8px;
+  padding: 80px 100px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.maincontent {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 80px 150px;
+  height: 200px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+/* if i am in my desktop */
+@media screen and (min-width: 769px){
+  .menu-icon {
+    display: none;
+  }
+  /* ul.nav-links {
+    display: block;
+  } */
+}
+
+
+
+/* if i am in my iphone */
+@media screen and (max-width: 768px){
+  .menu-icon {
+    display: block;
+  }
+  ul.nav-links {
+    display: none !important;
+  }
+
+  #nav-toggle:checked + .menu-icon + .nav-links {
+    display: block !important;
+    display: flex;
+    gap: 1.3rem;
+  }
+  /* .nav-links  {
+    display: flex;
+    gap: 1.3rem;
+  } */
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .sidebar {
+    padding: 10px 100px !important;
+    background-color: #333 !important;
+    color: #fff;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 1000px){
+  .sidebar {
+    padding: 10px 100px !important;
+    background-color: rgb(53, 53, 204);
+    color: #fff;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 1200px){
+  .sidebar {
+    padding: 10px 100px !important;
+    background-color: rgb(61, 179, 112);
+    color: #fff;
+    height: auto;
+  }
+}

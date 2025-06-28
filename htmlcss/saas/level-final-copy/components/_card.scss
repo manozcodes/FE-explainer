@@ -1,0 +1,28 @@
+@use '../base/variables';
+@use '../base/mixins';
+
+.pricing-card {
+  border: 1px solid #e5e7eb;
+  padding: 2rem;
+  border-radius: variables.$border-radius;
+  background-color: white;
+  text-align: center;
+  transition: transform 0.3s ease;
+
+  @include mixins.shadow-md;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &.highlight {
+    border: 2px solid variables.$secondary-color;
+  }
+
+  .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: variables.$primary-color;
+    margin: 1rem 0;
+  }
+}

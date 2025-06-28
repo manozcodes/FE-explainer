@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<body>
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 100px;
+  gap: 10px;
+  width: 600px;
+  /* margin: 0 auto; */
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.a { background: turquoise; }
+.b { background: orange; }
+.c { background: chartreuse; grid-column: 2 / 4; grid-row: 2 / 4; }
+.d { background: darkviolet; }
+.e { background: deeppink; }
+.f { background: dodgerblue; }
+
+</style>
+<body>
+<div class="main">
+  <div class="grid-container">
+    <div class="item a">A</div>
+    <div class="item b">B</div>
+    <div class="item d">D</div>
+    <div class="item e">E</div>
+    <div class="item c">C</div>
+    <div class="item f">F</div>
+  </div>
+</div>
+    
+
+</body>
+</html>
+

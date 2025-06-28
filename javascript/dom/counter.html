@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+
+        <h2>Count: <span id="count" class="countclass">10</span></h2>
+        <button onClick="increment()">Increment (+)</button>
+        <button onClick="decrement()">Decrement (-)</button>
+        <script>
+            let count = document.getElementById('count').textContent;
+            function increment () {
+                count++;
+                document.getElementById('count').innerText = count;
+            }
+
+            function decrement () {
+                count--;
+                document.getElementById('count').innerText = count;
+            }
+
+        </script>
+    </body>
+</html>
+

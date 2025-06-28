@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+        
+        .radio-group, .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background-color: #3a7bc8;
+        }
+        
+        /* Responsive adjustments */
+        @media (min-width: 600px) {
+            .form-group {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            label {
+                flex: 0 0 150px;
+                text-align: right;
+                padding-right: 15px;
+            }
+            
+            input, select {
+                flex: 1;
+            }
+            
+            .radio-group, .checkbox-group {
+                margin-left: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form id="registrationForm" class="form-container" autocomplete="on">
+        <!-- Personal Information Section -->
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <textarea  rows="10" id="firstName" name="firstName" placeholder="Enter your first name" required value="Manojjjjj"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required value="acharya"/>
+        </div>
+        
+        <!-- Contact Information Section -->
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required />
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+        </div>
+        
+        <!-- Security Information -->
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" required />
+        </div>
+        
+        <!-- Gender Selection (Radio Buttons) -->
+        <div class="form-group">
+            <label>Gender:</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="male" name="gender" value="male" required />
+                    <label for="male">Male</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="female" name="gender" value="female" />
+                    <label for="female">Female</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="other" name="gender" value="other" />
+                    <label for="other">Other</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hobbies Selection (Checkboxes) -->
+        <div class="form-group">
+            <label>Hobbies:</label>
+            <div class="checkbox-group">
+                <div class="checkbox-option">
+                    <input type="checkbox" id="travel" name="hobbies" value="travel" />
+                    <label for="travel">Travel</label>
+                </div>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="reading" name="hobbies" value="reading" />
+                    <label for="reading">Reading</label>
+                </div>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="sleeping" name="hobbies" value="sleeping" />
+                    <label for="sleeping">Sleeping</label>
+                </div>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="nothing" name="hobbies" value="nothing" />
+                    <label for="nothing">Nothing</label>
+                </div>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="coding" name="hobbies" value="coding" />
+                    <label for="coding">Coding</label>
+                </div>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="music" name="hobbies" value="music" />
+                    <label for="music">Music</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Upload -->
+        <div class="form-group">
+            <label for="resume">Upload Resume:</label>
+            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" />
+        </div>
+
+        <!-- Date Selection -->
+        <div class="form-group">
+            <label for="birthDate">Date of Birth:</label>
+            <input type="date" id="birthDate" name="manoz" />
+        </div>
+
+        <!-- Course Selection (Dropdown) -->
+        <div class="form-group">
+            <label for="course">Select Course:</label>
+            <select id="course" name="course" required>
+                <option value="">-- Select a course --</option>
+                <option value="react">ReactJS</option>
+                <option value="html" selected>HTML/CSS</option>
+                <option value="python">Python</option>
+            </select>
+        </div>
+       
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit">Submit Form</button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            
+            // Create a FormData object from the form
+            const formData = new FormData(this);
+            const formValues = {};
+            
+            // Convert FormData to a plain object
+            formData.forEach((value, key) => {
+                // For checkboxes, we need to handle multiple values
+                if (key === 'hobbies') {
+                    if (!formValues[key]) {
+                        formValues[key] = [];
+                    }
+                    formValues[key].push(value);
+                } else {
+                    formValues[key] = value;
+                }
+            });
+            
+            // Log the form data to console
+            console.log('Form Submission Data:', formValues);
+            
+            // Here you would typically send the data to a server
+            // For now, we'll just display an alert
+            alert('Form submitted successfully! Check console for data.');
+        });
+    </script>
+</body>
+</html>

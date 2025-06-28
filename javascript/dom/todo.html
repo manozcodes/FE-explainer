@@ -1,0 +1,44 @@
+<!-- getElementById() returns the single element
+getElementsByClassName() returns the array
+querySelector() returns the single element
+querySelectorAll() returns the array -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>todo</title>
+    </head>
+    <body>
+        <input type="text" id="todo" />
+        <button onClick="addTodo()">Add</button>
+        <ul id="todoList">
+            <li>task 1</li>
+            <li>task 2</li>
+            <li>task 3</li>
+        </ul>
+        <script>
+
+            function addTodo() {
+                // step1, get the value
+                const todo = document.getElementById("todo").value;
+
+                // step2, create the li element
+                const li = document.createElement("li");
+
+                //step 3,  put input value inside created element
+
+                li.textContent = todo;
+
+                // step 4, append
+                document.getElementById("todoList").appendChild(li);
+
+                // setp5. reset 
+                document.getElementById("todo").value = "";
+
+
+            }
+
+        
+        </script>
+    </body>
+</html>

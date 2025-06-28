@@ -1,0 +1,27 @@
+<!-- getElementById() returns the single element
+getElementsByClassName() returns the array
+querySelector() returns the single element
+querySelectorAll() returns the array -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>input</title>
+    </head>
+    <body>
+        <select id="username">
+            <option value="manoz">Manoz</option>
+            <option value="acharya">Acharya</option>
+        </select>
+        <button onClick="changeGreeting()">Submit</button>
+        <p id="greeting">Good Morning!</p>
+        <script>
+
+            function changeGreeting() {
+                const username = document.getElementById("username");
+                const greeting = document.getElementById("greeting");
+                greeting.textContent = "Good Morning " + username.value + "!";
+            }
+        </script>
+    </body>
+</html>

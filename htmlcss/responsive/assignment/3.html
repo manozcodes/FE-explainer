@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Layout</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .header {
+      background: #f77f7f;
+    }
+
+    .main {
+      background: #ffffff;
+    }
+
+    .left {
+      background: #f7d66f;
+    }
+
+    .right {
+      background: #b0f796;
+    }
+
+    .footer {
+      background: #7fcdf7;
+    }
+
+    .grid > div {
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+
+    /* Mobile Layout */
+    .grid {
+      grid-template-areas:
+        "header"
+        "main"
+        "left"
+        "right"
+        "footer";
+    }
+
+    /* Tablet Layout */
+    @media (min-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "header header"
+          "main main"
+          "left right"
+          "footer footer";
+      }
+    }
+
+    /* Desktop Layout */
+    @media (min-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-areas:
+          "header header header"
+          "left main right"
+          "footer footer footer";
+      }
+    }
+
+    .header { grid-area: header; }
+    .main { grid-area: main; }
+    .left { grid-area: left; }
+    .right { grid-area: right; }
+    .footer { grid-area: footer; }
+
+  </style>
+</head>
+<body>
+
+  <div class="grid">
+    <div class="header">Header</div>
+    <div class="main">Main</div>
+    <div class="left">Left</div>
+    <div class="right">Right</div>
+    <div class="footer">Footer</div>
+  </div>
+
+</body>
+</html>

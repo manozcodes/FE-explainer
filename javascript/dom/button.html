@@ -1,0 +1,24 @@
+<!-- getElementById() returns the single element
+getElementsByClassName() returns the array
+querySelector() returns the single element
+querySelectorAll() returns the array -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>buttons</title>
+    </head>
+    <body>
+        <h1 id="my-heading" class="my-heading1">MY BUTTON</h1>
+        <h1 id="my-heading" class="my-heading1">MY BUTTON</h1>
+        <button onClick="changeHeading()">Change Text</button>
+        <script>
+            function changeHeading() {
+                const heading = document.getElementsByClassName("my-heading1")[1];
+                heading.innerHTML = "I am clicking & modifying the text";
+                heading.style.color = "black";
+                heading.style.backgroundColor = "orange";
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+@use '../base/mixins';
+
+.pricing-wrapper {
+    gap: 2rem;
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+
+    @include mixins.flex-center;
+  }

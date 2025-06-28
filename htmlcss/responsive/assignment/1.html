@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Cards</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .card {
+      flex: 1;
+      padding: 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 100px;
+    }
+
+    .card.green {
+      background-color: #3e8f7b;
+    }
+
+    .card.dark {
+      background-color: #222;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .arrow {
+      font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card green">
+      <div class="text">
+        <div class="title">Manifesto</div>
+        <div class="subtitle">Join the campaign</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+    <div class="card dark">
+      <div class="text">
+        <div class="title">Contribute</div>
+        <div class="subtitle">Become a volunteer</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+    <div class="card green">
+      <div class="text">
+        <div class="title">Leadership</div>
+        <div class="subtitle">Become a volunteer</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+  </div>
+
+</body>
+</html>

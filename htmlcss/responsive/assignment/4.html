@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Flexbox Layout</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header, nav, main, aside, footer {
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .header { background-color: #1e3a8a; }
+    .nav    { background-color: #2563eb; }
+    .main   { background-color: #60a5fa; }
+    .ads    { background-color: #93c5fd; }
+    .footer { background-color: #1e40af; }
+
+    /* Group content rows (nav + main + aside) */
+    .content-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 🖥 Desktop layout */
+    @media (min-width: 768px) {
+      .content-row {
+        flex-direction: row;
+      }
+
+      .nav {
+        width: 20%;
+      }
+
+      .main {
+        width: 60%;
+      }
+
+      .ads {
+        width: 20%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">Header</header>
+
+    <div class="content-row">
+      <nav class="nav">Nav</nav>
+      <main class="main">Main Content</main>
+      <aside class="ads">Ads</aside>
+    </div>
+
+    <footer class="footer">Footer</footer>
+  </div>
+</body>
+</html>
