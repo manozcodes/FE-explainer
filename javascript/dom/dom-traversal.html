@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DOM Traversal</title>
+</head>
+<body>
+  <div id="container">
+    <h2>DOM Tree</h2>
+    <ul id="itemList">
+      <li class="item">Item 1</li>
+      <li class="item">Item 2</li>
+      <li class="item">Item 3</li>
+    </ul>
+  </div>
+
+  <script>
+    const list = document.getElementById('itemList');
+    const firstItem = list.firstElementChild;
+    const lastItem = list.lastElementChild;
+
+    console.log('Parent:', list.parentElement);
+    // console.log('Children:', list.children);
+    console.log('First Item:', firstItem.textContent);
+    console.log('Last Item:', lastItem.textContent);
+    console.log('Previous Sibling of Item 2:', firstItem.nextElementSibling.previousElementSibling);
+
+    // Change style using traversal
+    list.children[1].style.color = 'red'; // Item 2
+  </script>
+</body>
+</html>

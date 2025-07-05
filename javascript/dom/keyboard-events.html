@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Keyboard Events</title>
+</head>
+<body>
+  <h2>Type in the box below</h2>
+  <input type="text" id="keyboardInput" />
+  <p id="log"></p>
+
+  <script>
+    const input = document.getElementById('keyboardInput');
+    const log = document.getElementById('log');
+
+    input.addEventListener('keydown', (e) => {
+      log.textContent = `Key Down: ${e.key}`;
+    });
+
+    input.addEventListener('keyup', (e) => {
+      log.textContent = `Key Up: ${e.key}`;
+    });
+
+    input.addEventListener('keypress', (e) => {
+      console.log(`Key Pressed: ${e.key}`);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!-- [ELEMENT].addEventListener([EVENT_NAME], () => {
+
+}); -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mouse Events</title>
+</head>
+<body>
+  <div id="box" style="width:200px; height:200px; background:lightblue; text-align:center; line-height:200px;">
+    Hover & Click Me
+  </div>
+  <p id="mouseLog"></p>
+
+  <script>
+    const box = document.getElementById('box');
+    const log = document.getElementById('mouseLog');
+
+
+    box.addEventListener('click', () => {
+      log.textContent = 'Box clicked!';
+    });
+
+    box.addEventListener('dblclick', () => {
+      log.textContent = 'Double clicked!';
+    });
+
+    box.addEventListener('mouseenter', () => {
+      box.style.backgroundColor = 'lightgreen';
+    });
+
+    box.addEventListener('mouseleave', () => {
+      box.style.backgroundColor = 'lightblue';
+    });
+
+    box.addEventListener('mousemove', (e) => {
+      console.log({e})
+      log.textContent = `Mouse at (${e.offsetX}, ${e.offsetY})`;
+    });
+  </script>
+  
+</body>
+</html>

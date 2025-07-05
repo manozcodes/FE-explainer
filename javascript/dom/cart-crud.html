@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Card CRUD with Subtotal & Total</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 6px;
+      margin-right: 10px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid #ccc;
+      padding: 16px;
+      border-radius: 10px;
+      width: 200px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+    }
+
+    .card p {
+      margin: 4px 0;
+    }
+
+    .card .actions {
+      margin-top: 10px;
+    }
+
+    .card button {
+      margin-right: 6px;
+    }
+
+    .totals {
+      margin-top: 30px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h2>🛒 Add Product Card</h2>
+  <form id="productForm">
+    <input type="text" id="name" placeholder="Product Name" required />
+    <input type="number" id="price" placeholder="Unit Price" required />
+    <input type="number" id="quantity" placeholder="Quantity" required />
+    <button type="submit">Add Product</button>
+  </form>
+
+  <div class="card-container" id="cardContainer"></div>
+
+  <div class="totals">
+    <p id="subtotal">Subtotal: $0</p>
+    <p id="total">Total (with 13% tax): $0</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('productForm');
+    const container = document.getElementById('cardContainer');
+    const subtotalEl = document.getElementById('subtotal');
+    const totalEl = document.getElementById('total');
+
+    let products = [];
+    let editingIndex = -1;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const price = parseFloat(document.getElementById('price').value);
+      const quantity = parseInt(document.getElementById('quantity').value);
+
+      if (!name || price <= 0 || quantity <= 0) return;
+
+      if (editingIndex === -1) {
+        products.push({ name, price, quantity });
+      } else {
+        products[editingIndex] = { name, price, quantity };
+        editingIndex = -1;
+        form.querySelector('button').textContent = 'Add Product';
+      }
+
+      form.reset();
+      renderCards();
+    });
+
+    function renderCards() {
+      container.innerHTML = '';
+      let subtotal = 0;
+
+      products.forEach((product, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const productTotal = product.price * product.quantity;
+        subtotal += productTotal;
+
+        card.innerHTML = `
+          <h3>${product.name}</h3>
+          <p>Price: $${product.price.toFixed(2)}</p>
+          <p>Quantity: ${product.quantity}</p>
+          <p><strong>Subtotal: $${productTotal.toFixed(2)}</strong></p>
+          <div class="actions">
+            <button onclick="editProduct(${index})">Edit</button>
+            <button onclick="deleteProduct(${index})">Delete</button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      subtotalEl.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+      totalEl.textContent = `Total (with 13% tax): $${(subtotal * 1.13).toFixed(2)}`;
+    }
+
+    function editProduct(index) {
+      const product = products[index];
+      document.getElementById('name').value = product.name;
+      document.getElementById('price').value = product.price;
+      document.getElementById('quantity').value = product.quantity;
+      editingIndex = index;
+      form.querySelector('button').textContent = 'Update Product';
+    }
+
+    function deleteProduct(index) {
+      if (confirm('Delete this product?')) {
+        products.splice(index, 1);
+        renderCards();
+      }
+    }
+
+    // Make functions globally accessible
+    window.editProduct = editProduct;
+    window.deleteProduct = deleteProduct;
+  </script>
+</body>
+</html>

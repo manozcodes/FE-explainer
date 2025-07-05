@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Form Events</title>
+</head>
+<body>
+  <form id="userForm">
+    <input type="text" id="name" placeholder="Enter name" /><br />
+    <input type="email" id="email" placeholder="Enter email" /><br />
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('userForm');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Prevent form from reloading page
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      alert(`Submitted\nName: ${name}\nEmail: ${email}`);
+    });
+
+    form.addEventListener('change', (e) => {
+      console.log('Changed field:', e.target.id);
+    });
+
+    form.addEventListener('input', (e) => {
+      console.log(`Input in ${e.target.id}:`, e.target.value);
+    });
+  </script>
+</body>
+</html>

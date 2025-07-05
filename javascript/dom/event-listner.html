@@ -1,0 +1,55 @@
+<!-- [ELEMENT].addEventListener([EVENT_NAME], () => {
+
+}); -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Popular Event Listeners</title>
+</head>
+<body>
+  <button id="clickBtn">Click Me</button>
+  <input type="text" id="hoverInput" placeholder="Hover over me" />
+  <p id="focusPara">Click here and then somewhere else</p>
+
+  <script>
+    const clickBtn = document.getElementById('clickBtn');
+    
+    clickBtn.addEventListener('click', () => {
+      alert('Button clicked!');
+    });
+
+    const hoverInput = document.getElementById('hoverInput');
+
+    hoverInput.addEventListener('mouseover', () => {
+      hoverInput.style.backgroundColor = 'red';
+    });
+
+    hoverInput.addEventListener('mouseout', () => {
+      hoverInput.style.backgroundColor = '';
+    });
+
+    const focusPara = document.getElementById('focusPara');
+
+    focusPara.tabIndex = 0; // Make it focusable
+    focusPara.addEventListener('focus', () => {
+      focusPara.style.border = '2px solid blue';
+    });
+    focusPara.addEventListener('blur', () => {
+      focusPara.style.border = '';
+    });
+
+  </script>
+</body>
+</html>
+
+<!-- [ELEMENT].addEventListener([EVENT_NAME], () => {
+
+}); -->
+
+<!-- // Write 5 different colors name, and on hover change the background color of each name. -->
+
