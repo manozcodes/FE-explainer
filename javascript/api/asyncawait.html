@@ -1,0 +1,23 @@
+<html>
+    <body>
+        <button onclick="getApi()">Get Api</button>
+        <div id="Loading" style="display:none;color:white;">Loading...</div>
+        <script>
+            const url = 'https://jsonplaceholder.typicode.com/todos/1';
+
+            const imagainedAPI = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+
+             async function getApi() {
+                document.getElementById('Loading').style.display = 'block';
+                console.log('1111')
+                const response = await fetch(url)
+                    .then(manoz => manoz.json())
+                    .then(manoz => console.log(manoz))
+
+                document.getElementById('Loading').style.color = 'white';
+                console.log('2222')
+            }
+        </script>
+    </body>
+</html>

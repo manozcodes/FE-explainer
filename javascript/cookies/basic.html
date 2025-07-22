@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <h1>Cookie Example</h1>
+        <button onclick="setCookie()">Set Cookie</button>
+        <button onclick="getCookie()">Get Cookie</button>
+        <script>
+            function setCookie() {
+                console.log("set cookie");
+                document.cookie = "name=Manoz";
+                // localStorage.setItem('name','Manoz')
+            }
+            function getCookie() {
+                const cookieValue = document.cookie;
+                console.log({cookieValue});
+            }
+        </script>
+    </body>
+</html>

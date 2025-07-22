@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OMDb Movie Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 30px;
+      color: #333;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .movie-container {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 20px;
+    }
+    .movie-poster {
+      max-width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+    .movie-details {
+      flex: 1;
+    }
+    .movie-details h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .movie-details p {
+      margin: 5px 0;
+    }
+    .label {
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Movie Details</h1>
+  <div id="movie" class="movie-container">
+    Loading movie details...
+  </div>
+
+  <script>
+    const apiUrl = "http://www.omdbapi.com/?t=a&y=1990&plot=full&apikey=85ad5e96";
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('movie');
+        if (data.Response === "True") {
+          container.innerHTML = `
+            <img class="movie-poster" src="${data.Poster}" alt="Poster of ${data.Title}" />
+            <div class="movie-details">
+              <h2>${data.Title} (${data.Year})</h2>
+              <p><span class="label">Genre:</span> ${data.Genre}</p>
+              <p><span class="label">Director:</span> ${data.Director}</p>
+              <p><span class="label">Actors:</span> ${data.Actors}</p>
+              <p><span class="label">Plot:</span> ${data.Plot}</p>
+              <p><span class="label">IMDB Rating:</span> ${data.imdbRating}</p>
+              <p><span class="label">Runtime:</span> ${data.Runtime}</p>
+            </div>
+          `;
+        } else {
+          container.textContent = "Movie details not found.";
+        }
+      })
+      .catch(error => {
+        document.getElementById('movie').textContent = "Failed to load movie details.";
+        console.error("Error fetching movie data:", error);
+      });
+  </script>
+
+</body>
+</html>

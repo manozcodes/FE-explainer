@@ -1,0 +1,32 @@
+<!-- 
+sessionStorage.setItem('key', 'value'); // TO SET/SAVE/UPDATE TO THE LOCAL STORAGE
+sessionStorage.getItem('key');  // TO RETRIEVE/GET FROM THE LOCAL STORAGE
+sessionStorage.clear();
+sessionStorage.removeItem('key');
+JSON.stringify();
+JSON.parse();
+sessionStorage.key();
+-->
+
+
+
+<html>
+    <body>
+        <input type="text" id="todo">
+        <button onclick="addTodo()">Add Todo</button>
+        <ul id="todoList"></ul>
+
+        <script>
+
+            function addTodo() {
+                sessionStorage.setItem('country','Nepal!');
+
+const myCountry = sessionStorage.getItem('country');
+console.log(`My country name is ${myCountry}`)
+
+            }
+     
+        
+        </script>
+    </body>
+</html>

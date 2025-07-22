@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bitcoin Price Chart - Last 30 Days</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f8f9fa;
+    }
+    h1 {
+      margin-bottom: 24px;
+    }
+    .price-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .price-item {
+      background: #e2e8f0;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .date {
+      font-weight: bold;
+    }
+    .price {
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bitcoin Prices (First 10 from Last 30 Days)</h1>
+  <div id="price-list" class="price-container">
+    <div class="price-item">Loading data...</div>
+  </div>
+
+  <script>
+    const apiUrl = 'https://corsproxy.io/?https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=2';
+
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(data => {
+        const prices = data.prices.slice(0, 10);
+        const container = document.getElementById('price-list');
+        container.innerHTML = '';
+
+        prices.forEach(([timestamp, price]) => {
+          const div = document.createElement('div');
+          div.className = 'price-item';
+          div.innerHTML = `
+            <div class="date">${new Date(timestamp).toLocaleString()}</div>
+            <div class="price">$${price.toFixed(2)}</div>
+          `;
+          container.appendChild(div);
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('price-list').innerHTML = '<div class="price-item">Failed to load data.</div>';
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weather Forecast (Berlin)</title>
+  <style>
+    :root {
+      --bg: #f7f9fa;
+      --card-bg: #ecf0f1;
+      --text: #2c3e50;
+      --radius: 8px;
+      --shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      margin: 40px;
+      color: var(--text);
+    }
+
+    h1 {
+      margin-bottom: 24px;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    /* === BOX LAYOUT === */
+    .forecast-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .forecast-item {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .timestamp {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .temp {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .unit {
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hourly Temperature Forecast (Berlin) &mdash; First 10 Readings</h1>
+
+  <!-- Container for all forecast boxes -->
+  <section id="forecast" class="forecast-container">
+    <div class="forecast-item">Loading data&hellip;</div>
+  </section>
+
+  <script>
+    const apiUrl =
+      "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m&current=snowfall,rain&daily=sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,uv_index_clear_sky_max,rain_sum,showers_sum,snowfall_sum";
+
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        const container = document.getElementById("forecast");
+        container.innerHTML = ""; // clear the “loading” placeholder
+
+        const times = data.hourly.time.slice(0, 10);         // first 10 entries
+        const temps = data.hourly.temperature_2m.slice(0, 10);
+
+        times.forEach((timestamp, idx) => {
+          const div = document.createElement("div");
+          div.className = "forecast-item";
+
+          div.innerHTML = `
+            <div class="timestamp">${new Date(timestamp).toLocaleString()}</div>
+            <div><span class="temp">${temps[idx].toFixed(1)}</span><span class="unit"> °C</span></div>
+          `;
+
+          container.appendChild(div);
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        document.getElementById("forecast").innerHTML =
+          "<div class='forecast-item'>Error fetching data.</div>";
+      });
+  </script>
+</body>
+</html>

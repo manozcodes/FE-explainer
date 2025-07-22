@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Opportunity Quotes</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 40px;
+      background: #f0f2f5;
+      color: #2c3e50;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .quote-card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .quote-text {
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .author {
+      font-weight: bold;
+      text-align: right;
+      color: #0984e3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Quotes about Opportunity</h1>
+  <div id="quote-container" class="quote-grid">
+    <div class="quote-card">Loading quotes…</div>
+  </div>
+
+  <script>
+    const apiUrl = "https://zenquotes.io/api/quotes";
+
+    fetch("https://corsproxy.io/?" + apiUrl)  // use proxy if direct fetch causes CORS
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("quote-container");
+        container.innerHTML = "";
+
+        const quotes = data.slice(0, 10); // show top 10
+
+        quotes.forEach(q => {
+          const card = document.createElement("div");
+          card.className = "quote-card";
+
+          const author = q.a || "Unknown";
+          const quote = q.q || "No quote available.";
+
+          card.innerHTML = `
+            <div class="quote-text">"${quote}"</div>
+            <div class="author">— ${author}</div>
+          `;
+
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById("quote-container").innerHTML =
+          "<div class='quote-card'>Failed to load quotes.</div>";
+      });
+  </script>
+
+</body>
+</html>

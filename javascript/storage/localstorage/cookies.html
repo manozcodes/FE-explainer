@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Test</title>
+</head>
+<body>
+    <button id="show">Show cookies</button>
+    <button id="clear">Clear</button>
+    <div>
+      <code id="cookie-value"></code>
+    </div>
+    
+
+  <script>
+  const showBtn = document.getElementById("show");
+const clearBtn = document.getElementById("clear");
+const output = document.getElementById("cookie-value");
+
+// Note that we are setting `SameSite=None;` in this example because the example
+// needs to work cross-origin.
+// It is more common not to set the `SameSite` attribute, which results in the default,
+// and more secure, value of `SameSite=Lax;`
+document.cookie = "name=Oeschger; SameSite=None; Secure";
+document.cookie = "favorite_food=tripe; SameSite=None; Secure";
+
+showBtn.addEventListener("click", () => {
+  output.textContent = `> ${document.cookie}`;
+});
+clearBtn.addEventListener("click", () => {
+  document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = "favorite_food=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  output.textContent = "";
+});
+
+  </script>
+</body>
+</html>

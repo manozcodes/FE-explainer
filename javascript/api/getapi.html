@@ -1,0 +1,18 @@
+<!-- one button that hit fetch GET api -->
+
+<html>
+    <body>
+        <!-- <button onclick="getApi()">Get Api</button> -->
+        <script>
+
+            const url = 'https://jsonplaceholder.typicode.com/todos/1';
+            function getApi() {
+                const response = fetch(url)
+                    .then(manoz => manoz.json())
+                    .then(manoz => console.log(manoz))
+            }
+            console.log('the result', getApi())
+            console.log('my name is manoz')
+        </script>
+    </body>
+</html>

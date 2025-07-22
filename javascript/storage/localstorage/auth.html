@@ -1,0 +1,38 @@
+<html>
+    <body style="margin: 100px 200px;border:2px dotted black;padding:20px;max-width:700px;">
+        <div id="form">
+            <input placeholder="Enter your username" type="text" id="username"><br />
+            <button onclick="login()" style="margin-top: 10px;">Login</button>
+        </div>
+        <div id="greeting" style="display: none;"></div>
+        <button id="logoutBtn" onclick="logout()" style="margin-top: 10px;display: none;">Logout</button>
+    </body>
+    <script>
+        const myUsername = localStorage.getItem('username');
+        const isAuthenticated = localStorage.getItem('isAuthenticated');
+
+        function reUse(xyz) {
+            document.getElementById('form').style.display = 'none';
+            document.getElementById('greeting').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('greeting').innerHTML = `Hello, ${xyz}! Welcome to our website!`;
+        }
+        if(isAuthenticated === "true") {
+            reUse(myUsername);
+        } 
+        function login() {
+            const username = document.getElementById('username').value;
+            // console.log(username)
+            localStorage.setItem('username', username);
+            localStorage.setItem('isAuthenticated', true);
+            reUse(username);
+        }
+
+        function logout() {
+            localStorage.clear();
+            document.getElementById('form').style.display = 'block';
+            document.getElementById('greeting').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+        }
+    </script>
+</html>

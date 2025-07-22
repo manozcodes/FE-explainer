@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student List (Add & Show)</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { margin: 5px; padding: 6px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+  </style>
+</head>
+<body>
+
+  <h2>Student Records</h2>
+
+  <form id="studentForm">
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="number" id="age" placeholder="Age" required>
+    <button type="submit">Add</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>Name</th><th>Age</th></tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById('studentForm');
+    const name = document.getElementById('name');
+    const age = document.getElementById('age');
+    const tableBody = document.getElementById('tableBody');
+
+    function getStudents() {
+      return JSON.parse(localStorage.getItem('students') || '[]');
+    }
+
+    function saveStudents(data) {
+      localStorage.setItem('students', JSON.stringify(data));
+    }
+
+    function renderTable() {
+      const students = getStudents();
+      tableBody.innerHTML = '';
+      for (let i = 0; i < students.length; i++) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${i + 1}</td>
+          <td>${students[i].name}</td>
+          <td>${students[i].age}</td>
+        `;
+        tableBody.appendChild(row);
+      }
+    }
+
+    form.onsubmit = function(e) {
+      e.preventDefault();
+      const newStudent = { name: name.value.trim(), age: age.value.trim() };
+      if (!newStudent.name || !newStudent.age) return;
+
+      const students = getStudents();
+      students.push(newStudent);
+      saveStudents(students);
+      form.reset();
+      renderTable();
+    };
+
+    renderTable(); // initial load
+  </script>
+
+</body>
+</html>

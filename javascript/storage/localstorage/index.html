@@ -1,0 +1,52 @@
+<!-- 
+localStorage.setItem('key', 'value'); // TO SET/SAVE/UPDATE TO THE LOCAL STORAGE
+localStorage.getItem('key');  // TO RETRIEVE/GET FROM THE LOCAL STORAGE
+localStorage.clear();
+localStorage.removeItem('key');
+JSON.stringify();
+JSON.parse();
+localStorage.key();
+-->
+
+
+
+<html>
+    <body>
+        <input type="text" id="todo">
+        <button onclick="addTodo()">Add Todo</button>
+        <ul id="todoList"></ul>
+
+        <script>
+            localStorage.setItem('country','Nepal!');
+
+            // const myCountry = localStorage.getItem('country');
+            // console.log(`My country name is ${myCountry}`)
+
+            const myPosts = [{
+                title: 'Post 1',
+                body: 'This is post 1',
+                author: 'Manoz'
+            }, {
+                title: 'Post 2',
+                body: 'This is post 2',
+                author: 'Manoz'
+            }]
+
+            localStorage.setItem('Posts', JSON.stringify(myPosts))
+
+            console.log('my posts', JSON.parse(localStorage.getItem('Posts'), typeof JSON.parse(localStorage.getItem('Posts'))))
+            // localStorage.clear()
+            // localStorage.removeItem('Posts')
+            // console.log(localStorage.key(1))
+
+            // function addTodo() {
+            //     const todo = document.getElementById('todo').value;
+            //     localStorage.setItem('todo', todo);
+            //     const todoList = document.getElementById('todoList');
+            //     const li = document.createElement('li');
+            //     li.textContent = todo;
+            //     todoList.appendChild(li);
+            // }
+        </script>
+    </body>
+</html>

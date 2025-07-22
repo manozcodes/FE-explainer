@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Buttons Inline</title>
+  <style>
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="button-group">
+    <button id="getBtn">Get</button>
+    <button id="addBtn" onClick="addName()">Add</button>
+    <button id="removeBtn">Remove</button>
+  </div>
+<script>
+    localStorage.setItem('names', JSON.stringify([{name: 'manoz'},{name: 'manoz'},{name: 'manoz'}]))
+
+    function addName() {
+        //step1:
+        let getallnames = JSON.parse(localStorage.getItem('names'));
+        console.log('step1:', getallnames)
+
+        //step2:
+        let finalNames = [...getallnames, {name: 'manoz'}]
+        console.log('step2:', finalNames)
+
+        //step3:
+        localStorage.setItem('names', JSON.stringify(finalNames))
+
+
+
+    }
+
+ 
+</script>
+</body>
+</html>
