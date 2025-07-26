@@ -5,10 +5,14 @@
         <button onclick="getCookie()">Get Cookie</button>
         <script>
             function setCookie() {
-                console.log("set cookie");
-                document.cookie = "name=Manoz";
-                // localStorage.setItem('name','Manoz')
+                document.cookie = "name=Manoz; path=/; SameSite=Lax; max-age=3600";
+                console.log("cookie set");
+
+                //expires in 5 minute using date.getTime()
+                //secure option (https only)
+
             }
+
             function getCookie() {
                 const cookieValue = document.cookie;
                 console.log({cookieValue});

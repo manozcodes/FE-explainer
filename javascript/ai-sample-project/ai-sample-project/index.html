@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <title>Kindergarden - TODO App</title> -->
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header>
+        <h1><i class="fa-solid fa-list-check"></i> Kindergarden To Do</h1>
+        <form id="search-form">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search tasks..."
+            autocomplete="off"
+          />
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </header>
+      <main>
+        <section class="add-task-section">
+          <form id="add-task-form">
+            <input
+              type="text"
+              id="task-title"
+              placeholder="Add a new task..."
+              required
+            />
+            <input type="date" id="task-due-date" />
+            <button type="submit"><i class="fa fa-plus"></i> Add</button>
+          </form>
+        </section>
+        <section class="tasks-section">
+          <ul id="tasks-list">
+            <!-- Tasks will be rendered here -->
+          </ul>
+          <div id="empty-state">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png"
+              alt="No tasks"
+            />
+            <p>No tasks yet. Add your first task!</p>
+          </div>
+        </section>
+      </main>
+      <!-- Task Detail Popup -->
+      <div id="task-popup" class="popup hidden">
+        <div class="popup-content">
+          <button class="close-btn" id="close-popup">
+            <i class="fa fa-times"></i>
+          </button>
+          <h2 id="popup-title">Task Title</h2>
+          <p id="popup-desc">Task description goes here.</p>
+          <div class="popup-meta">
+            <span id="popup-date"><i class="fa fa-calendar"></i> Due: --</span>
+            <span id="popup-status"
+              ><i class="fa fa-clock"></i> Status: --</span
+            >
+          </div>
+          <div class="popup-actions">
+            <button id="popup-edit"><i class="fa fa-pen"></i> Edit</button>
+            <button id="popup-delete">
+              <i class="fa fa-trash"></i> Delete
+            </button>
+            <button id="popup-postpone">
+              <i class="fa fa-clock-rotate-left"></i> Postpone
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Overlay for popup -->
+      <div id="overlay" class="hidden"></div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
