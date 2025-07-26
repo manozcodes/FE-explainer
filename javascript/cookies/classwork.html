@@ -1,8 +1,73 @@
-<!-- Create a web page with:
-    1. input field to enter name
-    2. button to set cookie
-    3. button to get cookie
-    4. button to delete cookie
- -->
+<!--
+    1. Create 3 different boxes (small), with different colors (red, green, blue)
+    2. when you click one box, set in cookie
+    3. change the background of page based on clicked/cookie value
+    4. when you refresh the page, it should show the same background color
 
- 
+    5. create a reset button, which will clear the cookie and remove the background color (DEFAULT = GREEN)
+
+    NOTIFICATION SYSTEM:
+
+        “Red alert! Your vibe is bold and powerful now.”
+
+        “Feeling the green? Fresh choice! Saved for next time.”
+
+        “Blue it is! Calm and cool wins. Background updated.”
+
+    -- REMOVE THE notification already after 5 seconds.
+
+-->
+
+<html>
+    <style>
+        #container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+    <body>
+        <div id="container">
+            <div id="redBox" style="width:100px; height:100px; background:red;border:1px solid white;"></div>
+            <div id="greenBox" style="width:100px; height:100px; background:green;border:1px solid white;"></div>
+            <div id="blueBox" style="width:100px; height:100px; background:blue;border:1px solid white;"></div>
+        </div>
+        <script>
+            const redBox = document.getElementById('redBox');
+            const greenBox = document.getElementById('greenBox');
+            const blueBox = document.getElementById('blueBox');
+
+            redBox.addEventListener('click', () => {
+                document.cookie = "color=red; path=/; SameSite=Lax; max-age=3600";
+                document.body.style.backgroundColor = 'red';
+            });
+            greenBox.addEventListener('click', () => {
+                document.cookie = "color=green; path=/; SameSite=Lax; max-age=3600";
+                document.body.style.backgroundColor = 'green';
+            });
+            blueBox.addEventListener('click', () => {
+                document.cookie = "color=blue; path=/; SameSite=Lax; max-age=3600";
+                document.body.style.backgroundColor = 'blue';
+            });
+
+            const cookieValueFromBrowser = document.cookie;
+            const getValue = (key) => {
+                const splitted = cookieValueFromBrowser.split(';')
+                const objects = {};
+
+                splitted.forEach((item, index) => {
+                    const [key, value] = item.split('=');
+                    objects[key?.trim()] = value?.trim();
+                })
+
+                return objects[key]
+            }
+
+            const color = getValue('color');
+            if (color) {
+                document.body.style.backgroundColor = color;
+            }
+        </script>
+    </body>
+</html>

@@ -5,18 +5,25 @@
         <button onclick="getCookie()">Get Cookie</button>
         <script>
             function setCookie() {
-                document.cookie = "name=Manoz; path=/; SameSite=Lax; max-age=3600";
+                // document.cookie = "name=Manoz; path=/; SameSite=Lax; max-age=3600";
                 console.log("cookie set");
 
                 //expires in 5 minute using date.getTime()
-                //secure option (https only)
+
+                const data = new Date();
+                console.log({data})
+
+                // data.setTime(data.getTime() + (5*60*1000));
+
+                document.cookie = "name=Manoz; expires=" + data.toUTCString() + "; path=/; SameSite=Lax; max-age=3600; secure";
 
             }
 
-            function getCookie() {
-                const cookieValue = document.cookie;
-                console.log({cookieValue});
-            }
+            // function getCookie() {
+            //     const name = localStorage.getItem('name');
+            //     const cookieValue = document.cookie;
+            //     console.log({cookieValue});
+            // }
         </script>
     </body>
 </html>

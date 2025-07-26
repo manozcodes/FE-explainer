@@ -1,1 +1,102 @@
- <!-- Cookies that stores remaining time and resumes from the same countdown timer even after refresh -->
+ <!-- 
+    Cookies that stores remaining time and 
+    resumes from the same countdown timer even after refresh 
+  -->
+
+  <html>
+    <body>
+        <h1>Countdown Timer</h1>
+        <input type="number" id="timerInput" />
+        <button onclick="startTimer('fromInput')">Start Timer</button>
+        <p id="timerDisplay"></p>
+
+
+        <script>
+            function startTimer(mode) {
+                            const inputValue = mode === 'fromInput' ? document.getElementById('timerInput').value : cookieData;
+                            console.log('111', inputValue) // 100
+                            
+
+                            const timerDisplay = document.getElementById('timerDisplay');
+                            console.log('222', timerDisplay) // // 100
+
+                            let tempValue = inputValue;
+
+                            const timer = setInterval(() => {
+
+                                tempValue--;
+                                console.log('333', tempValue)
+
+                                if(tempValue >= 0) {
+                                    timerDisplay.textContent = tempValue;
+                                    document.cookie = "remainingTime=" + tempValue + "; path=/; SameSite=Lax; max-age=3600; secure";
+                                }
+
+                                if(tempValue === 0) {
+                                    clearInterval(timer);
+                                }
+                            }, 1000);
+                        }
+
+            const cookieValueFromBrowser = document.cookie;
+
+            const getValue = (key) => {
+                const splitted = cookieValueFromBrowser.split(';') // ["remainingTime=100", "Country=100"]
+                const objects = {}; // {remainingTime: 100, Country: 100}
+
+                splitted.forEach((item, index) => {
+                    const [key, value] = item.split('='); // ["remainingTime", "100"], [0] or [1]
+                    objects[key?.trim()] = value?.trim();
+                })
+
+
+                return objects[key]
+            }
+
+            console.log('real value', getValue('remainingTime'))
+
+            // console.log('cookieValueFromBrowser', cookieValueFromBrowser)
+            // // console.log('step1', cookieValueFromBrowser?.split(';'))
+            // // console.log('step2', cookieValueFromBrowser?.split(';')?.find(item => item?.includes('remainingTime')))
+            // // console.log('step3', cookieValueFromBrowser?.split(';')?.find(item => item?.includes('remainingTime'))?.split('='))
+            // console.log('step4', cookieValueFromBrowser?.split(';')?.find(item => item?.startsWith('remainingTime'))?.split('=')[1])
+
+
+
+
+            const finalCookieValue = Number(cookieValueFromBrowser.split('=')[1])
+            
+            const cookieData = finalCookieValue;
+
+            // if(cookieData > 0){
+            //     startTimer('fromCookie');
+            // }
+            
+
+
+        </script>
+
+
+
+
+        <!-- <script>
+            let timer;
+            let remainingTime = 60;
+            
+            function startTimer() {
+                timer = setInterval(() => {
+                    remainingTime--;
+                    console.log(remainingTime);
+                }, 1000);
+            }
+            
+            function pauseTimer() {
+                clearInterval(timer);
+            }
+            
+            function resumeTimer() {
+                startTimer();
+            }
+        </script> -->
+    </body>
+  </html>
