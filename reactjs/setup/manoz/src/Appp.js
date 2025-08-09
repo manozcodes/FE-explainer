@@ -15,7 +15,7 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 const App = () => {
   const value = 44;
   return(
-    <div>
+   <div>
       <div className="text-bg">
         heyy ({value})
       </div>
@@ -27,7 +27,7 @@ const App = () => {
           marginTop: '5px'
       }}>
         This is the mini description.
-      </div>
+      </div> 
       <div style={{
         marginTop: '5px'
       }}>
