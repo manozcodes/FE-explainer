@@ -7,16 +7,17 @@ import {
   List,
   ListItem,
   ListItemText,
-  IconButton,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { Facebook, Twitter, LinkedIn, Instagram } from "@mui/icons-material";
 import { SecondaryButton, OutlinedButton } from "../../shared/Buttons";
+import SocialMediaIcons from "../../shared/Icons/SocialMediaIcons";
 
 const Footer = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const socialMediaPlatforms = ["facebook", "twitter", "linkedin", "instagram"];
 
   const entityTypes = [
     "Knowledge base",
@@ -128,56 +129,7 @@ const Footer = () => {
               </Typography>
 
               {/* Social Icons */}
-              <Box sx={{ display: "flex", gap: 1 }}>
-                <IconButton
-                  sx={{
-                    color: "white",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    },
-                  }}
-                  size="small"
-                >
-                  <Facebook />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    color: "white",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    },
-                  }}
-                  size="small"
-                >
-                  <Twitter />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    color: "white",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    },
-                  }}
-                  size="small"
-                >
-                  <LinkedIn />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    color: "white",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    },
-                  }}
-                  size="small"
-                >
-                  <Instagram />
-                </IconButton>
-              </Box>
+              <SocialMediaIcons socialMediaPlatforms={socialMediaPlatforms} />
             </Box>
           </Grid>
 
