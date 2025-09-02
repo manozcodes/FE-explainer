@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const ProfileLayout = () => {
   const [savedProducts, setSavedProducts] = useState([
@@ -39,6 +40,12 @@ const ProfileLayout = () => {
       emoji: "🎧",
     },
   ]);
+
+  const onRemoveItem = (id) => {
+    setSavedProducts((prevSavedProducts) =>
+      prevSavedProducts?.filter((product) => product.id !== id)
+    );
+  };
 
   return (
     <Box mx={28} my={5}>
@@ -161,6 +168,13 @@ const ProfileLayout = () => {
                   >
                     Add to Cart
                   </Button>
+                  <DeleteOutlineOutlinedIcon
+                    sx={{
+                      color: "#2d5546",
+                      "&:hover": { color: "#1e3a2e", cursor: "pointer" },
+                    }}
+                    onClick={() => onRemoveItem(product.id)}
+                  />
                 </Box>
               </Box>
             ))}
