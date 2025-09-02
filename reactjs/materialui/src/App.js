@@ -3,6 +3,7 @@ import AllProducts from "./components/Products/AllProducts";
 import Header from "./components/TopMenu/Header";
 import Login from "./components/Auth/Login";
 import Footer from "./components/Footer/Footer";
+import ProfileLayout from "./components/MyProfile/ProfileLayout";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AllProducts />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<ProfileLayout />} />
       </Routes>
       <Footer />
     </Router>

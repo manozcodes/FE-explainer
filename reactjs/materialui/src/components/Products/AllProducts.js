@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./AllProducts.css";
+import ProductFilter from "./ProductFilter";
 
 const AllProducts = () => {
   const [wishlist, setWishlist] = useState(new Set());
@@ -107,6 +108,7 @@ const AllProducts = () => {
 
   return (
     <div className="products-container">
+      <ProductFilter />
       <div className="products-grid">
         {products.map((product) => (
           <div key={product.id} className="product-card">
