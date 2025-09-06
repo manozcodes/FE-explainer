@@ -4,6 +4,7 @@ import Header from "./components/TopMenu/Header";
 import Login from "./components/Auth/Login";
 import Footer from "./components/Footer/Footer";
 import ProfileLayout from "./components/MyProfile/ProfileLayout";
+import MyCart from "./components/Cart/MyCart";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<AllProducts />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProfileLayout />} />
+        <Route path="/cart" element={<MyCart />} />
       </Routes>
       <Footer />
     </Router>
