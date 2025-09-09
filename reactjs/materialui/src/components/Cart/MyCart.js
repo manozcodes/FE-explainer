@@ -3,7 +3,7 @@ import React from "react";
 import "./cart.css";
 import CartItems from "./CartItems";
 
-const MyCart = () => {
+const MyCart = ({ caredItems }) => {
   return (
     <Box mx={10} my={10}>
       <Typography variant="h4" mb={6}>

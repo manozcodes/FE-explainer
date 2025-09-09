@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -25,18 +26,27 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 function createData(name, price, qty, img) {
   return { name, price, qty, img, favorite: false };
 }
-const initialRows = [
-  createData("T-Shirt", 25.0, 1, "/images/denim.jpg"),
-  createData("Headphones", 60.0, 1, "/images/headphones.jpg"),
-  createData("Sneakers", 80.0, 2, "/images/new-sneakers.jpg"),
-  createData("Watch", 150.0, 1, "/images/smartW.jpg"),
-  createData("Speakers", 70.0, 1, "/images/speaker.jpg"),
-  createData("Backpack", 45.0, 1, "/images/backpack.jpg"),
-  createData("Sunglasses", 30.0, 1, "/images/sunglasses.jpg"),
-];
 
 export default function CartItems() {
-  const [rows, setRows] = React.useState(initialRows);
+  const [rows, setRows] = React.useState(
+    JSON.parse(localStorage.getItem("cartItems")) || []
+  );
+  const [subtotal, setSubtotal] = React.useState(0);
+  const [discount, setDiscount] = React.useState(0);
+  const [total, setTotal] = React.useState(0);
+
+  React.useEffect(() => {
+    setSubtotal(
+      rows.reduce(
+        (acc, row) =>
+          acc + row.price?.replaceAll("$", "")?.replaceAll('"', "") * row.qty ||
+          1,
+        0
+      )
+    );
+    setDiscount(subtotal > 200 ? 20 : 0);
+    setTotal(subtotal - discount);
+  }, [rows]);
 
   const toggleFavorite = (name) => {
     setRows((prev) =>
@@ -53,14 +63,20 @@ export default function CartItems() {
   const updateQuantity = (name, delta) => {
     setRows((prev) =>
       prev.map((row) =>
-        row.name === name ? { ...row, qty: Math.max(1, row.qty + delta) } : row
+        row.title === name
+          ? { ...row, qty: Math.max(1, row.qty || 1 + delta) }
+          : row
       )
     );
   };
 
-  const subtotal = rows.reduce((acc, row) => acc + row.price * row.qty, 0);
-  const discount = subtotal > 200 ? 20 : 0;
-  const total = subtotal - discount;
+  // const subtotal = rows.reduce(
+  //   (acc, row) =>
+  //     acc + row.price?.replaceAll("$", "")?.replaceAll('"', "") * row.qty || 1,
+  //   0
+  // );
+  // const discount = subtotal > 200 ? 20 : 0;
+  // const total = subtotal - discount;
 
   return (
     <Box display="flex" gap={3}>
@@ -87,10 +103,8 @@ export default function CartItems() {
                     Price
                   </Typography>
                 </TableCell>
-                <TableCell align="center">
-                </TableCell>
-                <TableCell align="center">
-                </TableCell>
+                <TableCell align="center"></TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -102,7 +116,9 @@ export default function CartItems() {
                   <TableCell align="center">
                     <Box display="flex" gap={3}>
                       <img
-                        src={row.img}
+                        src={
+                          "https://plus.unsplash.com/premium_photo-1756757313440-eee42d853d80?q=80&w=1012&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        }
                         alt={row.name}
                         style={{
                           width: 100,
@@ -119,18 +135,18 @@ export default function CartItems() {
                         alignItems={"flex-start"}
                       >
                         <Typography variant="h6" fontWeight={600}>
-                          {row.name}
+                          {row.title}
                         </Typography>
-                        <Typography variant="body1" fontWeight={400}>
+                        {/* <Typography variant="body1" fontWeight={400}>
                           Size: M
-                        </Typography>
+                        </Typography> */}
                       </Box>
                     </Box>
                   </TableCell>
                   <TableCell align="center">
                     <Box display="flex" alignItems="center" gap={1}>
                       <IconButton
-                        onClick={() => updateQuantity(row.name, -1)}
+                        onClick={() => updateQuantity(row.title, -1)}
                         sx={{
                           border: "1px solid #ccc",
                           borderRadius: "4px",
@@ -140,9 +156,9 @@ export default function CartItems() {
                       >
                         <RemoveIcon fontSize="small" />
                       </IconButton>
-                      <Typography>{row.qty}</Typography>
+                      <Typography>{row.qty || 1}</Typography>
                       <IconButton
-                        onClick={() => updateQuantity(row.name, 1)}
+                        onClick={() => updateQuantity(row.title, 1)}
                         sx={{
                           border: "1px solid #ccc",
                           borderRadius: "4px",
@@ -156,16 +172,20 @@ export default function CartItems() {
                   </TableCell>
                   <TableCell align="center">
                     <Typography variant="body1" fontWeight={400}>
-                      ${(row.price * row.qty).toFixed(2)}
+                      $
+                      {(
+                        row.price?.replaceAll("$", "")?.replaceAll('"', "") *
+                          row.qty || 1
+                      ).toFixed(2)}
                     </Typography>
                   </TableCell>
-                
+
                   <TableCell align="center">
                     <IconButton onClick={() => toggleFavorite(row.name)}>
                       {row.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                   </TableCell>
-              
+
                   <TableCell align="center">
                     <IconButton onClick={() => handleDelete(row.name)}>
                       <DeleteIcon />
@@ -199,7 +219,6 @@ export default function CartItems() {
         </Box>
       </Box>
 
-   
       <Box flex={1} display="flex" flexDirection="column" gap={2}>
         <Paper sx={{ p: 2 }}>
           <Typography variant="h6">Have a coupon?</Typography>
@@ -209,13 +228,13 @@ export default function CartItems() {
               placeholder="Coupon code"
               fullWidth
               sx={{
-                "& fieldset": { borderRadius: "8px 0 0 8px" }, 
+                "& fieldset": { borderRadius: "8px 0 0 8px" },
               }}
             />
             <Button
               variant="contained"
               sx={{
-                borderRadius: "0 8px 8px 0", 
+                borderRadius: "0 8px 8px 0",
                 px: 3,
                 backgroundColor: "#2d5546",
                 "&:hover": { backgroundColor: "#07733fd5" },
@@ -226,7 +245,6 @@ export default function CartItems() {
           </Box>
         </Paper>
 
-      
         <Paper sx={{ p: 2 }}>
           <Typography variant="h6">Order Summary</Typography>
           <Divider sx={{ my: 1 }} />

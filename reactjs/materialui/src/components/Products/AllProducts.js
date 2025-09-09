@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AllProducts.css";
 import ProductFilter from "./ProductFilter";
 
 const AllProducts = () => {
   const [wishlist, setWishlist] = useState(new Set());
+  const [cartItems, setCartItems] = useState([]);
 
   // Sample product data
   const products = [
@@ -102,9 +103,16 @@ const AllProducts = () => {
   };
 
   const addToCart = (product) => {
-    alert(`Added ${product.title} to cart!`);
+    setCartItems([...cartItems, { ...product }]);
+    // alert(`Added ${product.title} to cart!`);
     // Here you would typically dispatch to a cart state management system
   };
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  console.log("cartItems", cartItems);
 
   return (
     <div className="products-container">
@@ -132,6 +140,7 @@ const AllProducts = () => {
               <button
                 className="add-to-cart-btn"
                 onClick={() => addToCart(product)}
+                products
               >
                 Add to Cart
               </button>

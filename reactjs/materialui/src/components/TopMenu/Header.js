@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,6 +12,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
 
 const pages = ["Browse Products", "My Cart", "Refund Policy"];
 const settings = ["My Profile", "My Wishlist", "Logout"];
@@ -18,6 +20,7 @@ const settings = ["My Profile", "My Wishlist", "Logout"];
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [count, setCount] = React.useState(0);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -33,6 +36,12 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  React.useEffect(() => {
+    console.log("check", localStorage.getItem("cartItems"));
+    JSON.parse(localStorage.getItem("cartItems"))?.length > 0 &&
+      setCount(JSON.parse(localStorage.getItem("cartItems"))?.length || 0);
+  }, [localStorage.getItem("cartItems")]);
 
   return (
     <>
@@ -85,7 +94,7 @@ function Header() {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs: "block", md: "none" } }}
               >
-                {pages.map((page) => (
+                {pages.map((page, index) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography sx={{ textAlign: "center" }}>{page}</Typography>
                   </MenuItem>
@@ -118,22 +127,24 @@ function Header() {
                 marginRight: "90px",
               }}
             >
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: "white",
-                    display: "block",
-                    "&:hover": {
-                      backgroundColor: "#bdbdbd",
-                      color: "#333",
-                    },
-                  }}
-                >
-                  {page}
-                </Button>
+              {pages.map((page, index) => (
+                <Link to={index === 1 ? "/cart" : "#"}>
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "block",
+                      "&:hover": {
+                        backgroundColor: "#bdbdbd",
+                        color: "#333",
+                      },
+                    }}
+                  >
+                    {page} {index === 1 && `(${count})`}
+                  </Button>
+                </Link>
               ))}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
