@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { CircularProgress, Box, Typography } from "@mui/material";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, permission }) => {
   const location = useLocation();
   const [isAuthenticated, setIsAuthenticated] = React.useState(null);
   const [loading, setLoading] = React.useState(true);

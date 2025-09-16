@@ -1,13 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AllProducts from "./components/Products/AllProducts";
 import Header from "./components/TopMenu/Header";
-import Login from "./components/Auth/Login";
 import Footer from "./components/Footer/Footer";
-import ProfileLayout from "./components/MyProfile/ProfileLayout";
-import MyCart from "./components/Cart/MyCart";
 import NotFound from "./components/NotFound/NotFound";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
+import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "./routes";
 
 function App() {
   return (
@@ -16,36 +14,27 @@ function App() {
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<AllProducts />} />
-
         {/* Public route with restriction (redirects if authenticated) */}
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-
+        {PUBLIC_ROUTES.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<PublicRoute>{route.element}</PublicRoute>}
+          />
+        ))}
         {/* Private routes (require authentication) */}
-        <Route
-          path="/profile"
-          element={
-            <PrivateRoute>
-              <ProfileLayout />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <PrivateRoute>
-              <MyCart />
-            </PrivateRoute>
-          }
-        />
-
-        {/* 404 Not Found route - must be last */}
+        {PRIVATE_ROUTES.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <PrivateRoute permission={{ view: true, edit: false }}>
+                {route.element}
+              </PrivateRoute>
+            }
+          />
+        ))}
+        ß{/* 404 Not Found route - must be last */}
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
