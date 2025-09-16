@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PrimaryButton from "../../shared/Buttons/PrimaryButton";
 import AuthLayout from "../../shared/Layout/AuthLayout";
 import { userDetail } from "../../utils/constant";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Login = () => {
   const [formDetail, setFormDetail] = useState({
@@ -16,6 +16,7 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   console.log({ formDetail });
 
@@ -24,9 +25,11 @@ const Login = () => {
     const isPasswordMatch = formDetail.password === userDetail.password;
 
     if (isUsernameMatch && isPasswordMatch) {
-      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("isAuthenticated", "true");
       localStorage.setItem("username", formDetail.username);
-      navigate("/");
+      // Redirect to the page user was trying to access, or home
+      const from = location.state?.from || "/";
+      navigate(from, { replace: true });
     } else {
       alert("Login failed");
     }

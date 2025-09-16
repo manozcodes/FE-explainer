@@ -12,7 +12,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const pages = ["Browse Products", "My Cart", "Refund Policy"];
 const settings = ["My Profile", "My Wishlist", "Logout"];
@@ -21,6 +21,9 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [count, setCount] = React.useState(0);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [username, setUsername] = React.useState("");
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -37,11 +40,52 @@ function Header() {
     setAnchorElUser(null);
   };
 
+  const handleSettingClick = (setting) => {
+    handleCloseUserMenu();
+
+    switch (setting) {
+      case "My Profile":
+        navigate("/profile");
+        break;
+      case "My Wishlist":
+        // Add wishlist functionality here
+        console.log("Wishlist clicked");
+        break;
+      case "Logout":
+        localStorage.removeItem("isAuthenticated");
+        localStorage.removeItem("username");
+        setIsAuthenticated(false);
+        setUsername("");
+        navigate("/");
+        break;
+      default:
+        break;
+    }
+  };
+
   React.useEffect(() => {
     console.log("check", localStorage.getItem("cartItems"));
     JSON.parse(localStorage.getItem("cartItems"))?.length > 0 &&
       setCount(JSON.parse(localStorage.getItem("cartItems"))?.length || 0);
   }, [localStorage.getItem("cartItems")]);
+
+  // Check authentication status on component mount
+  React.useEffect(() => {
+    const checkAuth = () => {
+      const authStatus = localStorage.getItem("isAuthenticated");
+      const storedUsername = localStorage.getItem("username");
+
+      if (authStatus === "true" && storedUsername) {
+        setIsAuthenticated(true);
+        setUsername(storedUsername);
+      } else {
+        setIsAuthenticated(false);
+        setUsername("");
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   return (
     <>
@@ -127,60 +171,88 @@ function Header() {
                 marginRight: "90px",
               }}
             >
-              {pages.map((page, index) => (
-                <Link to={index === 1 ? "/cart" : "#"}>
-                  <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      "&:hover": {
-                        backgroundColor: "#bdbdbd",
-                        color: "#333",
-                      },
-                    }}
-                  >
-                    {page} {index === 1 && `(${count})`}
-                  </Button>
-                </Link>
-              ))}
+              {pages.map((page, index) => {
+                // Only show cart link if user is authenticated
+                if (index === 1 && !isAuthenticated) {
+                  return null;
+                }
+
+                return (
+                  <Link key={page} to={index === 1 ? "/cart" : "#"}>
+                    <Button
+                      onClick={handleCloseNavMenu}
+                      sx={{
+                        my: 2,
+                        color: "white",
+                        display: "block",
+                        "&:hover": {
+                          backgroundColor: "#bdbdbd",
+                          color: "#333",
+                        },
+                      }}
+                    >
+                      {page} {index === 1 && `(${count})`}
+                    </Button>
+                  </Link>
+                );
+              })}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="/static/images/avatar/2.jpg"
-                    sx={{ borderRadius: "15%" }}
-                  />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography sx={{ textAlign: "center" }}>
-                      {setting}
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
+              {isAuthenticated ? (
+                <>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar
+                        alt={username || "User"}
+                        sx={{ borderRadius: "15%" }}
+                      >
+                        {username?.charAt(0).toUpperCase() || "U"}
+                      </Avatar>
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting) => (
+                      <MenuItem
+                        key={setting}
+                        onClick={() => handleSettingClick(setting)}
+                      >
+                        <Typography sx={{ textAlign: "center" }}>
+                          {setting}
+                        </Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </>
+              ) : (
+                <Button
+                  component={Link}
+                  to="/login"
+                  color="inherit"
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#bdbdbd",
+                      color: "#333",
+                    },
+                  }}
+                >
+                  Login
+                </Button>
+              )}
             </Box>
           </Toolbar>
         </Container>
